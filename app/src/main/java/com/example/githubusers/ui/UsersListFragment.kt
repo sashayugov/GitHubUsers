@@ -1,4 +1,4 @@
-package com.example.githubusers
+package com.example.githubusers.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -25,6 +25,4 @@ class UsersListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

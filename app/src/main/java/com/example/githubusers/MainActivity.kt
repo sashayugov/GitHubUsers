@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.commit
 import com.example.githubusers.databinding.ActivityMainBinding
+import com.example.githubusers.ui.UsersListFragment
 
 class MainActivity : AppCompatActivity() {
 
