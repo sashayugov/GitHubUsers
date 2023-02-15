@@ -2,7 +2,7 @@ package com.example.githubusers.model
 
 import com.google.gson.annotations.SerializedName
 
-data class UserModel(
+data class UserResponseModel(
 
     @SerializedName("id")
     val id: Int,

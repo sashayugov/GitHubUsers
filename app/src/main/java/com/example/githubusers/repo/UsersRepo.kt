@@ -1,8 +1,7 @@
 package com.example.githubusers.repo
 
-import androidx.lifecycle.LiveData
-import com.example.githubusers.model.UserModel
+import com.example.githubusers.model.UsersData
 
 interface UsersRepo {
-    fun getUsersRepo(): LiveData<Array<UserModel>>
+    fun getUsersRepo(): UsersData
 }
