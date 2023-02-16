@@ -26,6 +26,11 @@
             android:textStyle="bold"
             tools:text="UserName repos:" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/purple_200" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_repos_list"

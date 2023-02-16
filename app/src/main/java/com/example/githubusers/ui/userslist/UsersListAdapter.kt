@@ -25,7 +25,7 @@ class UsersListAdapter(
 
     override fun getItemCount(): Int = usersArray.size
 
-    class ViewHolder(
+    inner class ViewHolder(
         itemBinding: RecyclerViewUserItemBinding,
         private val onUserClickListener: (item: UserResponseModel) -> Unit
     ) : RecyclerView.ViewHolder(itemBinding.root) {

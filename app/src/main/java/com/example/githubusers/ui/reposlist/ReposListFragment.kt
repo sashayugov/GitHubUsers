@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubusers.R
 import com.example.githubusers.databinding.FragmentReposListBinding
@@ -32,7 +33,8 @@ class ReposListFragment : Fragment() {
 
     private lateinit var progressBar: ProgressBar
     private lateinit var listOwner: TextView
-    private lateinit var reposList: RecyclerView
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: ReposListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,32 +56,35 @@ class ReposListFragment : Fragment() {
 
         progressBar = binding.reposListProgressBar
         listOwner = binding.reposListOwner
-        reposList = binding.recyclerViewReposList
+        recyclerView = binding.recyclerViewReposList
 
         userReposUrl?.let { viewModel.getReposByUrl(it) }
+        listOwner.text = userName
 
         renderData()
     }
 
     private fun renderData() {
         viewModel.reposLiveData.observe(viewLifecycleOwner) { reposData ->
-        when(reposData) {
-            is ReposData.Success -> {
-                setRecyclerView(reposData)
-                progressBar.isVisible = false
+            when (reposData) {
+                is ReposData.Success -> {
+                    setRecyclerView(reposData)
+                    progressBar.isVisible = false
+                }
+                is ReposData.Error -> {
+                    Toast.makeText(requireContext(), "Error, no repos", Toast.LENGTH_LONG).show()
+                }
+                is ReposData.Loading -> {
+                    progressBar.isVisible = reposData.progress
+                }
             }
-            is ReposData.Error -> {
-                Toast.makeText(requireContext(), "Error, no repos", Toast.LENGTH_LONG).show()
-            }
-            is ReposData.Loading -> {
-              progressBar.isVisible = reposData.progress
-            }
-        }
         }
     }
 
     private fun setRecyclerView(reposData: ReposData.Success) {
-        TODO("Not yet implemented")
+        adapter = ReposListAdapter(reposData.repos)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun onDestroyView() {
