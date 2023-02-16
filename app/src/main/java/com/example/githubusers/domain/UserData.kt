@@ -2,7 +2,7 @@ package com.example.githubusers.domain
 
 sealed class UsersData {
 
-    data class Success(val users: Array<UserResponseModel> ) : UsersData() {
+    data class Success(val users: Array<UserResponseModel>) : UsersData() {
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false

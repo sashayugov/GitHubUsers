@@ -4,11 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubusers.domain.UsersData
-import com.example.githubusers.data.MockUsersRepoImpl
+import com.example.githubusers.data.RetrofitUsersRepoImpl
 import com.example.githubusers.domain.ReposData
+import com.example.githubusers.domain.UsersRepo
 
 class UsersListViewModel(
-    private val usersRepo: MockUsersRepoImpl = MockUsersRepoImpl()
+    private val usersRepo: UsersRepo = RetrofitUsersRepoImpl()
 ) : ViewModel() {
 
     private var _usersLiveData: MutableLiveData<UsersData> = MutableLiveData()
@@ -25,10 +26,14 @@ class UsersListViewModel(
     }
 
     private fun getUsersData() {
-        _usersLiveData.value = usersRepo.getUsersRepo()
+        usersRepo.getUsersRepo {
+            _usersLiveData.value = it
+        }
     }
 
-    fun getReposByUrl(userReposUrl: String) {
-        _reposLiveData.value = usersRepo.getReposData(userReposUrl)
+    fun getReposByName(userName: String) {
+        usersRepo.getReposData(userName) {
+            _reposLiveData.value = it
+        }
     }
 }

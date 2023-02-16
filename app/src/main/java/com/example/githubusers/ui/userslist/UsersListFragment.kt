@@ -72,7 +72,7 @@ class UsersListFragment : Fragment() {
     private fun onOpenReposListFragment(user: UserResponseModel) {
         requireActivity().supportFragmentManager.commit {
             addToBackStack(null)
-            replace(R.id.container, ReposListFragment.newInstance(user.login, user.reposUrl))
+            replace(R.id.container, ReposListFragment.newInstance(user.login))
         }
     }
 

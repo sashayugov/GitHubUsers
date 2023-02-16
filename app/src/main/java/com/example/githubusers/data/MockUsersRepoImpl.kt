@@ -3,7 +3,7 @@ package com.example.githubusers.data
 import com.example.githubusers.domain.*
 
 class MockUsersRepoImpl : UsersRepo {
-    override fun getUsersRepo(): UsersData {
+     override fun getUsersRepo(callback: (UsersData) -> Unit) {
 
         val users = Array(50) {
             UserResponseModel(
@@ -13,16 +13,16 @@ class MockUsersRepoImpl : UsersRepo {
                 "https://api.github.com/users/mojombo/repos"
             )
         }
-        return UsersData.Success(users)
+         callback.invoke(UsersData.Success(users))
     }
 
-    override fun getReposData(userReposUrl: String): ReposData {
+    override fun getReposData(userReposUrl: String, callback: (ReposData) -> Unit) {
         val repos = Array(20) {
             RepoResponseModel(
                 1,
                 "some repository"
             )
         }
-        return ReposData.Success(repos)
+        callback.invoke(ReposData.Success(repos))
     }
 }

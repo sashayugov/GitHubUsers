@@ -12,14 +12,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.githubusers.R
 import com.example.githubusers.databinding.FragmentReposListBinding
-import com.example.githubusers.databinding.FragmentUsersListBinding
 import com.example.githubusers.domain.ReposData
 import com.example.githubusers.ui.UsersListViewModel
 
 private const val USER_NAME = "USER_NAME"
-private const val USER_REPOS_URL = "USER_REPOS_URL"
 
 class ReposListFragment : Fragment() {
 
@@ -27,7 +24,6 @@ class ReposListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var userName: String? = null
-    private var userReposUrl: String? = null
 
     private val viewModel by viewModels<UsersListViewModel>()
 
@@ -40,7 +36,6 @@ class ReposListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             userName = it.getString(USER_NAME)
-            userReposUrl = it.getString(USER_REPOS_URL)
         }
     }
 
@@ -58,7 +53,7 @@ class ReposListFragment : Fragment() {
         listOwner = binding.reposListOwner
         recyclerView = binding.recyclerViewReposList
 
-        userReposUrl?.let { viewModel.getReposByUrl(it) }
+        userName?.let { viewModel.getReposByName(it) }
         listOwner.text = userName
 
         renderData()
@@ -94,10 +89,9 @@ class ReposListFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(userName: String, userReposUrl: String) = ReposListFragment().apply {
+        fun newInstance(userName: String) = ReposListFragment().apply {
             arguments = Bundle().apply {
                 putString(USER_NAME, userName)
-                putString(USER_REPOS_URL, userReposUrl)
             }
         }
     }

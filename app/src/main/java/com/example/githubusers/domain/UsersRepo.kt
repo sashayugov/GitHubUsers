@@ -1,7 +1,7 @@
 package com.example.githubusers.domain
 
 interface UsersRepo {
-    fun getUsersRepo(): UsersData
+    fun getUsersRepo(callback: (UsersData) -> Unit)
 
-    fun getReposData(userReposUrl: String): ReposData
+    fun getReposData(userReposUrl: String, callback: (ReposData) -> Unit)
 }
