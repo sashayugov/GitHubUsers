@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.example.githubusers.databinding.RecyclerViewUserItemBinding
-import com.example.githubusers.model.UserResponseModel
+import com.example.githubusers.domain.UserResponseModel
 
 class UsersListAdapter(
     private val usersArray: Array<UserResponseModel>,

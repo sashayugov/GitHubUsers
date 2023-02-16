@@ -3,9 +3,9 @@ package com.example.githubusers.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubusers.model.UserResponseModel
-import com.example.githubusers.model.UsersData
-import com.example.githubusers.repo.MockUsersRepoImpl
+import com.example.githubusers.domain.UserResponseModel
+import com.example.githubusers.domain.UsersData
+import com.example.githubusers.data.MockUsersRepoImpl
 
 class UsersListViewModel(
     private val usersRepo: MockUsersRepoImpl = MockUsersRepoImpl()

@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubusers.databinding.FragmentUsersListBinding
-import com.example.githubusers.model.UsersData
+import com.example.githubusers.domain.UsersData
 import com.example.githubusers.ui.adapter.UsersListAdapter
 
 class UsersListFragment : Fragment() {
@@ -47,7 +47,7 @@ class UsersListFragment : Fragment() {
                     Toast.makeText(requireContext(), "Error, no users", Toast.LENGTH_LONG).show()
                 }
                 is UsersData.Loading -> {
-
+                    // TODO
                 }
             }
         }

@@ -1,7 +1,6 @@
-package com.example.githubusers.repo
+package com.example.githubusers.data
 
-import com.example.githubusers.model.UserResponseModel
-import com.example.githubusers.model.UsersData
+import com.example.githubusers.domain.*
 
 class MockUsersRepoImpl : UsersRepo {
     override fun getUsersRepo(): UsersData {
@@ -15,5 +14,15 @@ class MockUsersRepoImpl : UsersRepo {
             )
         }
         return UsersData.Success(users)
+    }
+
+    override fun getRepoData(): RepoData {
+        val repos = Array(20) {
+            RepoResponseModel(
+                1,
+                "some repository"
+            )
+        }
+        return RepoData.Success(repos)
     }
 }
