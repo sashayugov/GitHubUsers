@@ -16,13 +16,13 @@ class MockUsersRepoImpl : UsersRepo {
         return UsersData.Success(users)
     }
 
-    override fun getRepoData(): RepoData {
+    override fun getReposData(userReposUrl: String): ReposData {
         val repos = Array(20) {
             RepoResponseModel(
                 1,
                 "some repository"
             )
         }
-        return RepoData.Success(repos)
+        return ReposData.Success(repos)
     }
 }

@@ -3,5 +3,5 @@ package com.example.githubusers.domain
 interface UsersRepo {
     fun getUsersRepo(): UsersData
 
-    fun getRepoData(): RepoData
+    fun getReposData(userReposUrl: String): ReposData
 }

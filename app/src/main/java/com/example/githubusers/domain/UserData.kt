@@ -21,5 +21,5 @@ sealed class UsersData {
 
     data class Error(val error: Throwable) : UsersData()
 
-    data class Loading(val progress: Int?) : UsersData()
+    data class Loading(val progress: Boolean) : UsersData()
 }
