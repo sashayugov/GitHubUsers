@@ -11,10 +11,9 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
-class UsersListViewModel(
-    private val usersRepo: UsersRepo = RetrofitUsersRepoImpl()
-) : ViewModel() {
+class UsersListViewModel(private val usersRepo: UsersRepo) : ViewModel() {
 
     private var _usersLiveData: MutableLiveData<UsersData> = MutableLiveData()
     val usersLiveData = _usersLiveData as LiveData<UsersData>

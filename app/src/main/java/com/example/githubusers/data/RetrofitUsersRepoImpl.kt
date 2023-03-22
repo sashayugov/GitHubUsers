@@ -2,6 +2,7 @@ package com.example.githubusers.data
 
 import com.example.githubusers.data.retrofit.GitHubRetrofitService
 import com.example.githubusers.domain.*
+import dagger.multibindings.IntKey
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Call
@@ -9,21 +10,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
+import javax.inject.Singleton
 
-private const val BASE_URL = "https://api.github.com/"
+class RetrofitUsersRepoImpl @Inject constructor (private val _api: GitHubRetrofitService) : UsersRepo {
 
-class RetrofitUsersRepoImpl : UsersRepo {
-
-
-    private var retrofitGitHub: Retrofit =
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build()
-
-    private var _api: GitHubRetrofitService =
-        retrofitGitHub.create(GitHubRetrofitService::class.java)
     override var api = _api
 
     override fun getUsersRepo(callback: (UsersData) -> Unit) {

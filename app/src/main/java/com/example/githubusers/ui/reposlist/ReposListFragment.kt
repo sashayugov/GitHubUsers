@@ -1,5 +1,6 @@
 package com.example.githubusers.ui.reposlist
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,12 +10,17 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.githubusers.app
 import com.example.githubusers.databinding.FragmentReposListBinding
+import com.example.githubusers.di.ViewModelFactory
 import com.example.githubusers.domain.ReposData
 import com.example.githubusers.ui.UsersListViewModel
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val USER_NAME = "USER_NAME"
 
@@ -25,12 +31,14 @@ class ReposListFragment : Fragment() {
 
     private var userName: String? = null
 
-    private val viewModel by viewModels<UsersListViewModel>()
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel by activityViewModels<UsersListViewModel> { viewModelFactory }
 
-    private lateinit var progressBar: ProgressBar
-    private lateinit var listOwner: TextView
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ReposListAdapter
+    override fun onAttach(context: Context) {
+        requireContext().app.appComponent.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,14 +56,8 @@ class ReposListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        progressBar = binding.reposListProgressBar
-        listOwner = binding.reposListOwner
-        recyclerView = binding.recyclerViewReposList
-
         userName?.let { viewModel.getReposByName(it) }
-        listOwner.text = userName
-
+        binding.reposListOwner.text = userName
         renderData()
     }
 
@@ -64,22 +66,21 @@ class ReposListFragment : Fragment() {
             when (reposData) {
                 is ReposData.Success -> {
                     setRecyclerView(reposData)
-                    progressBar.isVisible = false
+                    binding.reposListProgressBar.isVisible = false
                 }
                 is ReposData.Error -> {
                     Toast.makeText(requireContext(), "Error, no repos", Toast.LENGTH_LONG).show()
                 }
                 is ReposData.Loading -> {
-                    progressBar.isVisible = reposData.progress
+                    binding.reposListProgressBar.isVisible = reposData.progress
                 }
             }
         }
     }
 
     private fun setRecyclerView(reposData: ReposData.Success) {
-        adapter = ReposListAdapter(reposData.repos)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewReposList.adapter = ReposListAdapter(reposData.repos)
+        binding.recyclerViewReposList.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun onDestroyView() {
