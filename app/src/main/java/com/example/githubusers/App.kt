@@ -2,15 +2,17 @@ package com.example.githubusers
 
 import android.app.Application
 import android.content.Context
-import com.example.githubusers.di.AppComponent
-import com.example.githubusers.di.DaggerAppComponent
+import com.example.githubusers.di.appModule
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
 class App : Application() {
 
-    lateinit var appComponent: AppComponent
-
     override fun onCreate() {
-        appComponent = DaggerAppComponent.create()
+        startKoin {
+            androidLogger()
+            modules(appModule)
+        }
         super.onCreate()
     }
 }

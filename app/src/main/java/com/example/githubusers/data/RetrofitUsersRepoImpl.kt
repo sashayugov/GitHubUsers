@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class RetrofitUsersRepoImpl @Inject constructor (private val _api: GitHubRetrofitService) : UsersRepo {
+class RetrofitUsersRepoImpl (private val _api: GitHubRetrofitService) : UsersRepo {
 
     override var api = _api
 

@@ -3,15 +3,13 @@ package com.example.githubusers.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubusers.domain.UsersData
-import com.example.githubusers.data.RetrofitUsersRepoImpl
 import com.example.githubusers.domain.ReposData
+import com.example.githubusers.domain.UsersData
 import com.example.githubusers.domain.UsersRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
-import javax.inject.Inject
 
 class UsersListViewModel(private val usersRepo: UsersRepo) : ViewModel() {
 
